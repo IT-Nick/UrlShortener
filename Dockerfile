@@ -10,8 +10,3 @@ RUN cd /build && git clone https://github.com/IT-Nick/urlSortener.git
 RUN cd /build/urlSortener && go build
 
 EXPOSE 8000
-COPY . .
-
-ENTRYPOINT [/build/urlSortener/main]
-
-CMD ["go", "main.go"]

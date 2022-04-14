@@ -1,11 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"os"
 	"urlShortener/storage"
 )
 
@@ -31,10 +33,13 @@ func (h *Handler) InitAndRun() {
 
 func main() {
 	h := Handler{}
-	var param string = "postgre"
-	if param == "postgre" {
-		h.DB, _ = storage.Connect()
+	sc := bufio.NewScanner(os.Stdin)
+	for sc.Scan() {
+		param := sc.Text()
+		if param == "postgre" {
+			h.DB, _ = storage.Connect()
+		}
+		h.isStorage = param
+		h.InitAndRun()
 	}
-	h.isStorage = param
-	h.InitAndRun()
 }
