@@ -5,14 +5,7 @@ import (
 	"errors"
 	"fmt"
 	_ "github.com/lib/pq"
-)
-
-const (
-	host = "localhost"
-	port = 5432
-	user = "postgres"
-	password = "123321"
-	dbname = "postgres"
+	"github.com/spf13/viper"
 )
 
 type Response struct {
@@ -31,11 +24,11 @@ var (
 
 func Connect() (*sql.DB, error) {
 	cfgcon := fmt.Sprintf("host = %s port = %d user = %s password = %s dbname = %s sslmode = disable",
-		host,
-		port,
-		user,
-		password,
-		dbname,
+		viper.GetString("host"),
+		viper.GetString("port"),
+		viper.GetString("user"),
+		viper.GetString("password"),
+		viper.GetString("dbname"),
 	)
 	db, err := sql.Open("postgres", cfgcon)
 	if err != nil {
